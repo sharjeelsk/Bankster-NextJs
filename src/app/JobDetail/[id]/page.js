@@ -367,9 +367,8 @@ function JobDetail(props) {
   return (
     <div>
       <Head>
-        <title>{title}</title>
-        <meta property="og:title" content={title} />
-        <meta name="twitter:title" content={title} />
+        <title>{singleJob.title}</title>
+        <meta name="job" content={singleJob.jobDescription} />
       </Head>
       <Header id="2" />
       <section className="row m-auto find-jobs-head">

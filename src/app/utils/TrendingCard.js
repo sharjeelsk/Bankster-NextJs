@@ -4,6 +4,8 @@ import "../style/JobCard.scss";
 import { renderAgo } from "./Functions";
 import LinearProgress from "@mui/material/LinearProgress";
 import { useRouter } from "next/navigation";
+import Head from "next/head";
+
 function TrendingCard({ item }) {
   const router = useRouter();
   function convertToLakhsString(num) {
@@ -58,6 +60,11 @@ function TrendingCard({ item }) {
   };
   //Business Development Analyst 28 characers
   return (
+  <>
+  <Head>
+        <title>{item.title}</title>
+        <meta name="blog" content={item.jobDescription} />
+      </Head>
     <div
       onClick={() => router.push(`/JobDetail/${item._id}`)}
       className="shadow job-card-item col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 trending cp"
@@ -110,6 +117,7 @@ function TrendingCard({ item }) {
         of 100
       </p>
     </div>
+    </>
   );
 }
 

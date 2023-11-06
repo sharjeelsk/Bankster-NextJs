@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 import "../style/JobCard.scss";
 import { renderAgo } from "./Functions";
 import { useRouter } from "next/navigation";
+import Head from "next/head";
 
 function JobCard({ item }) {
   const router = useRouter();
@@ -62,56 +63,62 @@ function JobCard({ item }) {
   };
 
   return (
-    <div className="shadow job-card-item col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 cp">
-      <p className="timeframe">{renderAgo(item.createdAt)}</p>
-      <div className="row m-auto align-items-center">
-        <div className="p-0 col-3">
-          <img
-            src={
-              item.createdByAdmin
-                ? renderImageString(item.createdByAdmin)
-                : renderImageString(item.createdBy)
-            }
-            alt="logo1"
-          />
+    <>
+      <Head>
+        <title>{item.title}</title>
+        <meta name="blog" content={item.jobDescription} />
+      </Head>
+      <div className="shadow job-card-item col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 cp">
+        <p className="timeframe">{renderAgo(item.createdAt)}</p>
+        <div className="row m-auto align-items-center">
+          <div className="p-0 col-3">
+            <img
+              src={
+                item.createdByAdmin
+                  ? renderImageString(item.createdByAdmin)
+                  : renderImageString(item.createdBy)
+              }
+              alt="logo1"
+            />
+          </div>
+          <div className="col-8">
+            <h5 className="companyname">
+              {item.companyName.length > 15
+                ? `${item.companyName.substring(0, 15)} ...`
+                : item.companyName}
+            </h5>
+            <p className="companylocation">
+              {item.jobLocation.city},{" "}
+              {`${item.jobLocation.state.substring(0, 2)}..`}
+            </p>
+          </div>
         </div>
-        <div className="col-8">
-          <h5 className="companyname">
-            {item.companyName.length > 15
-              ? `${item.companyName.substring(0, 15)} ...`
-              : item.companyName}
-          </h5>
-          <p className="companylocation">
-            {item.jobLocation.city},{" "}
-            {`${item.jobLocation.state.substring(0, 2)}..`}
-          </p>
-        </div>
-      </div>
-      <h4 className="jobname">
-        {item.title.length > 15
-          ? `${item.title.substring(0, 15)} ...`
-          : item.title}
-      </h4>
-      <h5 className="product">{`${item.product.substring(0, 18)}..`}</h5>
-      <p className="description">{item.jobDescription}</p>
+        <h4 className="jobname">
+          {item.title.length > 15
+            ? `${item.title.substring(0, 15)} ...`
+            : item.title}
+        </h4>
+        <h5 className="product">{`${item.product.substring(0, 18)}..`}</h5>
+        <p className="description">{item.jobDescription}</p>
 
-      <div className="bottom-div">
-        <p className="ctc">
-          <span className="amount">
-            ₹{numberWithCommas(item.ctc.min)} - ₹
-            {numberWithCommas(item.ctc.max)}
-          </span>
-        </p>
-        <Button
-          onClick={() => router.push(`/JobDetail/${item._id}`)}
-          fullWidth
-          className="mt-auto apply"
-          variant="contained"
-        >
-          Apply Now
-        </Button>
+        <div className="bottom-div">
+          <p className="ctc">
+            <span className="amount">
+              ₹{numberWithCommas(item.ctc.min)} - ₹
+              {numberWithCommas(item.ctc.max)}
+            </span>
+          </p>
+          <Button
+            onClick={() => router.push(`/JobDetail/${item._id}`)}
+            fullWidth
+            className="mt-auto apply"
+            variant="contained"
+          >
+            Apply Now
+          </Button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
