@@ -63,7 +63,7 @@ function TrendingCard({ item }) {
   <>
   <Head>
         <title>{item.title}</title>
-        <meta name="blog" content={item.jobDescription} />
+        <meta name="jobs" content={item.jobDescription} />
       </Head>
     <div
       onClick={() => router.push(`/JobDetail/${item._id}`)}

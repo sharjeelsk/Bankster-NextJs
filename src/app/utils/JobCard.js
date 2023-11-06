@@ -66,7 +66,7 @@ function JobCard({ item }) {
     <>
       <Head>
         <title>{item.title}</title>
-        <meta name="blog" content={item.jobDescription} />
+        <meta name="jobs" content={item.jobDescription} />
       </Head>
       <div className="shadow job-card-item col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 cp">
         <p className="timeframe">{renderAgo(item.createdAt)}</p>
