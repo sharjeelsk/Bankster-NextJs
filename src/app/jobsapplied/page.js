@@ -1,0 +1,247 @@
+"use client";
+import React, { useEffect, useState } from "react";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import axios from "axios";
+import { connect } from "react-redux";
+import { storeUserInfo } from "../../redux/user/userActions";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import Rating from "@mui/material/Rating";
+import WorkIcon from "@mui/icons-material/Work";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import FmdGoodIcon from "@mui/icons-material/FmdGood";
+import ArticleIcon from "@mui/icons-material/Article";
+import DescriptionIcon from "@mui/icons-material/Description";
+import Inventory2Icon from "@mui/icons-material/Inventory2";
+import Chip from "@mui/material/Chip";
+import SearchIcon from "@mui/icons-material/Search";
+import "../style/JobsApplied.scss";
+import { Button } from "@mui/material";
+
+import SearchBar2 from "../utils/SearchBar2";
+import HeaderDash from "../components/Header/HeaderDash";
+import CandidateDashhead from "../components/CandidateDashboard/CandidateDashhead";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+function JobsApplied(props) {
+  const [display, setDisplay] = useState(false);
+  const [jobsApplied, setJobsApplied] = useState([]);
+  const router = useRouter();
+
+  const getAppliedJobs = () => {
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_REACT_APP_DEVELOPMENT}/api/job/candidateJobs`,
+        {
+          headers: { token: props.user.user },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        if (res.data.result.length > 0) {
+          setJobsApplied(res.data.result);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getAppliedJobs();
+  }, []);
+
+  const renderJobStatus = (item) => {
+    let status = "";
+    item.jobCandidates.map((item, index) => {
+      if (item.user === props.user.userInfo._id) {
+        status = item.status;
+      }
+    });
+
+    return status;
+  };
+
+  const handleSearchSubmit = (text) => {
+    axios
+      .post(
+        `${process.env.NEXT_PUBLIC_REACT_APP_DEVELOPMENT}/api/job/searchAppliedJobs`,
+        { candidateId: props.user.userInfo._id, title: text },
+        { headers: { token: props.user.user } }
+      )
+      .then((res) => {
+        console.log(res);
+        if (res.data.msg === "success") {
+          setJobsApplied(res.data.result);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const renderImageString = (createdBy) => {
+    if (createdBy) {
+      if (Array.isArray(createdBy) && createdBy.length > 0) {
+        if (createdBy[0].companyImg.length > 0) {
+          return `${process.env.NEXT_PUBLIC_REACT_APP_DEVELOPMENT}/api/image/${createdBy[0].companyImg}`;
+        } else {
+          return "/job-offer.png";
+        }
+      } else if (createdBy.companyImg) {
+        if (createdBy.companyImg.length > 0) {
+          return `${process.env.NEXT_PUBLIC_REACT_APP_DEVELOPMENT}/api/image/${createdBy.companyImg}`;
+        } else {
+          return "/job-offer.png";
+        }
+      } else {
+        return "/job-offer.png";
+      }
+    }
+  };
+
+  return (
+    <>
+      <HeaderDash />
+
+      <div className="row">
+        <div className="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 p-0">
+          <CandidateDashhead margin={0} id={2} display={display} />
+        </div>
+
+        <div
+          className="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 dashboard-container scroll"
+          onClick={() => display && setDisplay(false)}
+        >
+          <span className="iconbutton display-mobile">
+            <IconButton
+              size="large"
+              aria-label="Menu"
+              onClick={() => setDisplay(true)}
+            >
+              <MenuIcon fontSize="inherit" />
+            </IconButton>
+          </span>
+          <h1>Applied Jobs</h1>
+          <SearchBar2
+            searchText="Search By Job Name..."
+            handleSearchSubmit={handleSearchSubmit}
+            getAllData={getAppliedJobs}
+          />
+          <div className="row my-auto job-head-a">
+            {jobsApplied.length > 0 ? (
+              jobsApplied.map((item, index) => (
+                <Link
+                  key={index}
+                  className="link col-12"
+                  href={`/jobdetail/${item._id}`}
+                >
+                  <section
+                    className={`shadow-sm job-apply-head row m-auto ${renderJobStatus(
+                      item
+                    )}`}
+                  >
+                    <div className="img-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1">
+                      <img
+                        src={
+                          item.createdByAdmin
+                            ? renderImageString(item.createdByAdmin)
+                            : renderImageString(item.createdBy)
+                        }
+                        alt="logo1"
+                      />
+                    </div>
+                    <div className="content-div col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
+                      <h3 className="m-0">{item.title}</h3>
+                      <p className="m-0 companyName">{item.companyName}</p>
+                      <h4 className="m-0">{item.product}</h4>
+                      <div className="row mt-2 mx-auto align-items-center">
+                        <div>
+                          <Rating name="read-only" value={3} readOnly />
+                        </div>
+                        <div>
+                          <p className="total-reviews">
+                            (Based on Job Details)
+                          </p>
+                        </div>
+                      </div>
+                      <div className="row my-2 mx-auto key-features">
+                        <div className="m-1">
+                          <WorkIcon />
+                          <span className="key-headline m-2">
+                            {item.experience.min} - {item.experience.max} Yrs
+                          </span>
+                        </div>
+                        <div className="m-1">
+                          <CurrencyRupeeIcon />
+                          <span className="key-headline m-2">
+                            {item.ctc.min} - {item.ctc.max} P.A
+                          </span>
+                        </div>
+                        <div className="m-1">
+                          <FmdGoodIcon />
+                          <span className="key-headline m-2">
+                            {item.jobLocation.city} | {item.jobLocation.state} |{" "}
+                            {item.jobLocation.country}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="row my-2 mx-auto key-features">
+                        <div className="m-1">
+                          <ArticleIcon />
+                          <span className="key-headline m-2">
+                            {item.qualification.ug}
+                          </span>
+                        </div>
+                        <div className="m-1">
+                          <DescriptionIcon />
+                          <span className="key-headline m-2">
+                            {item.qualification.pg}
+                          </span>
+                        </div>
+                        <div className="m-1">
+                          <Inventory2Icon />
+                          <span className="key-headline m-2">
+                            {item.industry}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bookmark-div col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                      <p className="status">{renderJobStatus(item)}</p>
+                    </div>
+                  </section>
+                </Link>
+              ))
+            ) : (
+              <div className="col-12 no-jobs">
+                <h1>You haven&apos;t applied for any jobs yet</h1>
+                <Button
+                  onClick={() => router.push("/findjobs")}
+                  startIcon={<SearchIcon />}
+                  variant="contained"
+                >
+                  Find Jobs
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+const mapStateToProps = ({ banksterUser }) => {
+  return {
+    user: banksterUser,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    storeUserInfo: (userInfo) => dispatch(storeUserInfo(userInfo)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(JobsApplied);

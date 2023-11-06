@@ -1,0 +1,65 @@
+@import "./globals.scss";
+
+.main_cont {
+  background-color: $secondary;
+  padding: 3%;
+  border-radius: 3%;
+  .plan-auth-cont {
+    background-color: white;
+    padding: 4%;
+    margin: 4%;
+    border-radius: 10px;
+    text-align: center;
+    h1,
+    h2 {
+      margin: 0;
+    }
+    h1 {
+    }
+    h2 {
+      font-weight: 400;
+      padding: 3% 0;
+      background: -webkit-linear-gradient(#e77aa5, #ff3d8b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p {
+      font-weight: 400;
+      font-size: 1.1em;
+      color: #a1a1a1;
+    }
+  }
+}
+
+.main_dev {
+  background-color: white;
+  width: 80%;
+  padding: 1rem;
+  margin-top: 2rem;
+  border-radius: 1rem;
+  padding: 3rem 1rem;
+  box-shadow: 2rem black;
+}
+
+@media (max-width: 992px) {
+  .logimg {
+    width: 100%;
+  }
+  .main_dev {
+    width: 80%;
+  }
+}
+
+@media (max-width: 768px) {
+  .main_dev {
+    width: 80%;
+  }
+}
+@media (max-width: 576px) {
+  .logimg {
+    width: 100%;
+  }
+  .main_dev {
+    width: 100%;
+  }
+}

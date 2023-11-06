@@ -1,0 +1,301 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import RecruiterDashhead from "../components/RecruiterDashboard/RecruiterDashhead";
+import axios from "axios";
+import { connect } from "react-redux";
+import { storeUserInfo } from "../../redux/user/userActions";
+import HeaderDash from "../components/Header/HeaderDash";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import Rating from "@mui/material/Rating";
+import WorkIcon from "@mui/icons-material/Work";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import FmdGoodIcon from "@mui/icons-material/FmdGood";
+import ArticleIcon from "@mui/icons-material/Article";
+import DescriptionIcon from "@mui/icons-material/Description";
+import Inventory2Icon from "@mui/icons-material/Inventory2";
+import Chip from "@mui/material/Chip";
+import SearchIcon from "@mui/icons-material/Search";
+import Tooltip from "@mui/material/Tooltip";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { setSnackbar } from "../../redux/flags/flagActions";
+import SearchBar2 from "../utils/SearchBar2";
+import { moment } from "moment";
+import Link from "next/link";
+import "../style/Dashhead.scss";
+import "../style/FindJobs.scss";
+import "../style/JobsApplied.scss";
+import TwoBDialog from "../utils/TwoBDialog";
+import { useRouter } from "next/navigation";
+
+function JobsCreated(props) {
+  const [display, setDisplay] = useState(false);
+  const [jobs, setJobs] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [jobId, setJobId] = useState("");
+
+  const router = useRouter();
+
+  const getCreatedJobs = () => {
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_REACT_APP_DEVELOPMENT}/api/job/recruiterJobs`,
+        {
+          headers: { token: props.user.user },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        if (res.data.msg === "success") {
+          setJobs(res.data.result);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getCreatedJobs();
+  }, []);
+
+  const deleteJob = () => {
+    axios
+      .post(
+        `${process.env.NEXT_PUBLIC_REACT_APP_DEVELOPMENT}/api/job/deleteJob`,
+        { jobId },
+        { headers: { token: props.user.user } }
+      )
+      .then((res) => {
+        console.log(res);
+        if (res.data.msg === "success") {
+          props.setSnackbar({
+            type: "success",
+            text: "Job Deleted Successfully",
+            open: true,
+          });
+        }
+      });
+  };
+  const handleSearchSubmit = (text) => {
+    axios
+      .post(
+        `${process.env.NEXT_PUBLIC_REACT_APP_DEVELOPMENT}/api/job/searchCreatedJobs`,
+        { recruiterId: props.user.userInfo._id, title: text },
+        { headers: { token: props.user.user } }
+      )
+      .then((res) => {
+        console.log(res);
+        if (res.data.msg === "success") {
+          setJobs(res.data.result);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const renderImageString = (createdBy) => {
+    if (createdBy) {
+      if (Array.isArray(createdBy) && createdBy.length > 0) {
+        if (createdBy[0].companyImg.length > 0) {
+          return `${process.env.NEXT_PUBLIC_REACT_APP_DEVELOPMENT}/api/image/${createdBy[0].companyImg}`;
+        } else {
+          return "/job-offer.png";
+        }
+      } else if (createdBy.companyImg) {
+        if (createdBy.companyImg.length > 0) {
+          return `${process.env.NEXT_PUBLIC_REACT_APP_DEVELOPMENT}/api/image/${createdBy.companyImg}`;
+        } else {
+          return "/job-offer.png";
+        }
+      } else {
+        return "/job-offer.png";
+      }
+    }
+  };
+  return (
+    <>
+      <TwoBDialog
+        open={open}
+        setOpen={setOpen}
+        title="Delete Job"
+        description="Are you sure you want to delete this job?"
+        leftButton="Cancel"
+        rightButton="Delete"
+        handleSubmit={deleteJob}
+      />
+      <HeaderDash />
+
+      <div className="row">
+        <div className="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 p-0">
+          <RecruiterDashhead margin={0} id={2} display={display} />
+        </div>
+
+        <div
+          className="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 dashboard-container scroll"
+          onClick={() => display && setDisplay(false)}
+        >
+          <span className="iconbutton display-mobile">
+            <IconButton
+              size="large"
+              aria-label="Menu"
+              onClick={() => setDisplay(true)}
+            >
+              <MenuIcon fontSize="inherit" />
+            </IconButton>
+          </span>
+
+          <h1>Created Jobs</h1>
+          <SearchBar2
+            searchText="Search By Job Name..."
+            handleSearchSubmit={handleSearchSubmit}
+            getAllData={getCreatedJobs}
+          />
+          {jobs.length > 0
+            ? jobs.map((item, index) => (
+                <section
+                  key={index}
+                  className={`col-12 shadow-sm job-apply-head row m-auto`}
+                  style={{ backgroundColor: "white" }}
+                >
+                  <div className="img-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1">
+                    <img
+                      src={
+                        item.createdByAdmin
+                          ? renderImageString(item.createdByAdmin)
+                          : renderImageString(item.createdBy)
+                      }
+                      alt="logo1"
+                    />
+                  </div>
+                  <div className="content-div col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
+                    <Link
+                      className="link"
+                      href={`/recruiterjobdetail/${item._id}`}
+                    >
+                      <h3 className="m-0">{item.title}</h3>
+                      <p className="m-0 companyName">{item.companyName}</p>
+                      <h4 className="m-0">{item.product}</h4>
+                      <div className="row mt-2 mx-auto align-items-center">
+                        <div>
+                          <Rating name="read-only" value={3} readOnly />
+                        </div>
+                        <div>
+                          <p className="total-reviews">
+                            (Based on Job Details)
+                          </p>
+                        </div>
+                      </div>
+                      <div className="row my-2 mx-auto key-features">
+                        <div className="m-1">
+                          <WorkIcon />
+                          <span className="key-headline m-2">
+                            {item.experience.min} - {item.experience.max} Yrs
+                          </span>
+                        </div>
+                        <div className="m-1">
+                          <CurrencyRupeeIcon />
+                          <span className="key-headline m-2">
+                            {item.ctc.min} - {item.ctc.max} P.A
+                          </span>
+                        </div>
+                        <div className="m-1">
+                          <FmdGoodIcon />
+                          <span className="key-headline m-2">
+                            {item.jobLocation.city} | {item.jobLocation.state} |{" "}
+                            {item.jobLocation.country}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="row my-2 mx-auto key-features">
+                        <div className="m-1">
+                          <ArticleIcon />
+                          <span className="key-headline m-2">
+                            {item.qualification.ug}
+                          </span>
+                        </div>
+                        <div className="m-1">
+                          <DescriptionIcon />
+                          <span className="key-headline m-2">
+                            {item.qualification.pg}
+                          </span>
+                        </div>
+                        <div className="m-1">
+                          <Inventory2Icon />
+                          <span className="key-headline m-2">
+                            {item.industry}
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                  <div
+                    className="application-count col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 link cp"
+                    onClick={() =>
+                      router.push(`/recruiterjobdetail/${item._id}`, true)
+                    }
+                  >
+                    <p className="my-2">
+                      {new Date(item.createdAt).toLocaleDateString("en-GB")}
+                    </p>
+                    <h4>{item.jobCandidates.length} Applied</h4>
+                  </div>
+                  <div className="bookmark-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mobile-right">
+                    <IconButton
+                      onClick={() => router.push(`/createjob?key=${item}`)}
+                    >
+                      <EditIcon sx={{ fontSize: 23 }} />
+                    </IconButton>
+                    <IconButton
+                      onClick={() => {
+                        setOpen(true);
+                        setJobId(item._id);
+                      }}
+                    >
+                      <DeleteOutlineIcon sx={{ fontSize: 23 }} />
+                    </IconButton>
+                  </div>
+                </section>
+              ))
+            : null}
+
+          <div
+            style={{ position: "fixed", bottom: "5%", right: "5%", zIndex: 5 }}
+          >
+            <Tooltip title="Add Services">
+              <Fab
+                variant="extended"
+                onClick={() => router.push("/createjob")}
+                color="primary"
+                aria-label="add"
+              >
+                <AddIcon sx={{ mr: 1 }} />
+                Create Job
+              </Fab>
+            </Tooltip>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+const mapStateToProps = ({ banksterUser }) => {
+  return {
+    user: banksterUser,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    storeUserInfo: (userInfo) => dispatch(storeUserInfo(userInfo)),
+    setSnackbar: (obj) => dispatch(setSnackbar(obj)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(JobsCreated);

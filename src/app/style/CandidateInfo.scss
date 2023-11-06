@@ -1,0 +1,37 @@
+@import "./globals.scss";
+
+.error-parent-div {
+  text-align: center;
+  width: 100%;
+  padding: 4% 0;
+}
+.cv-cont {
+  height: 100vh;
+}
+
+.candidate-info-parent {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.comment-parent {
+  background-color: white;
+  border-radius: 10px;
+  padding: 2%;
+}
+
+.candidate-info-container {
+  background-color: $secondary;
+  padding: 2% 0.5%;
+  .white-card {
+    background-color: white !important;
+    padding: 2%;
+    border-radius: 10px;
+    .spankey {
+      color: rgb(167, 167, 167);
+    }
+    p {
+      font-weight: 500;
+    }
+  }
+}
