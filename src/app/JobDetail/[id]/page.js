@@ -13,15 +13,16 @@ export async function generateMetadata({ params }) {
 
   return {
     title: product.data.result.title,
-    location: product.data.result.jobLocation.city,
-    product: product.data.result.product,
-    ctc: product.data.result.ctc.max,
-    description: product.data.result.jobDescription,
-    // openGraph: {
-    //   images: "/banksterfullAsset.png",
-    // },
+    description: `Location:${product.data.result.jobLocation.city},
+                  Product:${product.data.result.product},
+                  CTC:${product.data.result.ctc.max},
+    ${product.data.result.jobDescription}`,
   };
 }
+
+// location: product.data.result.jobLocation.city,
+// product: product.data.result.product,
+// ctc: product.data.result.ctc.max,
 
 function JobDetail(props) {
   return (
