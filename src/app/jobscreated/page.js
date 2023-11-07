@@ -160,7 +160,7 @@ function JobsCreated(props) {
             ? jobs.map((item, index) => (
                 <section
                   key={index}
-                  className={`col-12 shadow-sm job-apply-head row m-auto`}
+                  className={`col-12 shadow-sm job-apply-head row`}
                   style={{ backgroundColor: "white" }}
                 >
                   <div className="img-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1">
@@ -247,7 +247,13 @@ function JobsCreated(props) {
                   </div>
                   <div className="bookmark-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mobile-right">
                     <IconButton
-                      onClick={() => router.push(`/createjob?key=${item}`)}
+                      onClick={() =>
+                        router.push(
+                          `/createjob?key=${encodeURIComponent(
+                            JSON.stringify(item)
+                          )}`
+                        )
+                      }
                     >
                       <EditIcon sx={{ fontSize: 23 }} />
                     </IconButton>

@@ -225,7 +225,7 @@ function RecruiterHome(props) {
                 companyImg={companyImgFlag}
               />
               {/* candidate row section */}
-              <section className="candidate-info-section row m-auto shadow-sm">
+              <section className="candidate-info-section row  shadow-sm">
                 <div className="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 img-cont">
                   <img
                     src={
@@ -457,7 +457,7 @@ function RecruiterHome(props) {
               {/* candidate row section */}
 
               {/* company info */}
-              <section className="company-info-section shadow-sm row m-auto">
+              <section className="company-info-section shadow-sm row">
                 <div className="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
                   <img
                     src={

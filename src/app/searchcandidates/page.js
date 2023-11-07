@@ -115,6 +115,7 @@ function SearchCandidates(props) {
     currentCompany: "",
   };
   const [formValues, setFormValues] = useState(defaultFormValues);
+
   useEffect(() => {
     if (props.user.userInfo) {
       if (props.user.userInfo.availablePlanCredits) {
@@ -165,14 +166,16 @@ function SearchCandidates(props) {
       setError("Log In as a recruiter to view this section");
     }
 
-    if (props.location.state) {
-      setFormValues({ ...props.location.state });
-      setMust(props.location.state.must);
-      setAny(props.location.state.should);
-      setMustNot(props.location.state.mustNot);
-      setGender(
-        props.location.state.gender ? props.location.state.gender : "All"
-      );
+    const parsedItem = props.searchParams.key
+      ? JSON.parse(decodeURIComponent(props.searchParams.key))
+      : null;
+
+    if (parsedItem) {
+      setFormValues({ ...parsedItem });
+      setMust(parsedItem.must);
+      setAny(parsedItem.should);
+      setMustNot(parsedItem.mustNot);
+      setGender(parsedItem.gender ? parsedItem.gender : "All");
     }
   }, []);
   //   console.log(props);

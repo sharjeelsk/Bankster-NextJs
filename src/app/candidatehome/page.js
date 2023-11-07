@@ -180,7 +180,7 @@ function CandidateHome(props) {
               <EditProfile open={open5} setOpen={setOpen5} />
               <EditProfileImage open={open6} setOpen={setOpen6} />
               {/* candidate row section */}
-              <section className="candidate-info-section row m-auto shadow-sm">
+              <section className="candidate-info-section row  shadow-sm">
                 <div className="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 img-cont">
                   <img
                     src={

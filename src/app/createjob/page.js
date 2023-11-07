@@ -36,6 +36,8 @@ import FormLabel from "@mui/material/FormLabel";
 import { renderRating } from "../utils/Functions";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import "../style/JobsCreated.scss";
+
 function CreateJob(props) {
   const [display, setDisplay] = useState(false);
   const [ug, setUg] = useState([]);
@@ -131,10 +133,14 @@ function CreateJob(props) {
       });
   };
 
+  const parsedItem = props.searchParams.key
+    ? JSON.parse(decodeURIComponent(props.searchParams.key))
+    : null;
+
   useEffect(() => {
     //getRecruiterJob()
-    if (props.location.state) {
-      let oldData = props.location.state;
+    if (parsedItem) {
+      let oldData = parsedItem;
       setFormValues({
         title: oldData.title,
         industry: oldData.industry,
@@ -228,12 +234,12 @@ function CreateJob(props) {
     };
     console.log(obj);
     if (formValues.jobDescription.length > 100) {
-      if (props.location.state) {
+      if (parsedItem) {
         //edit job
         axios
           .post(
             `${process.env.NEXT_PUBLIC_REACT_APP_DEVELOPMENT}/api/job/editJob`,
-            { jobObject: obj, jobId: props.location.state._id },
+            { jobObject: obj, jobId: parsedItem._id },
             { headers: { token: props.user.user } }
           )
           .then((res) => {
@@ -305,7 +311,7 @@ function CreateJob(props) {
                 <h2>Create Job</h2>
                 <TextField
                   inputProps={{ maxLength: 30 }}
-                  disabled={props.location.state ? true : false}
+                  disabled={parsedItem ? true : false}
                   value={formValues.title}
                   onChange={(e) =>
                     setFormValues({ ...formValues, title: e.target.value })
@@ -743,7 +749,7 @@ function CreateJob(props) {
                     Cancel
                   </Button>
                   <Button onClick={() => handleJobCreate()} variant="contained">
-                    {props.location.state ? "Edit" : "Create"} Job
+                    {parsedItem ? "Edit" : "Create"} Job
                   </Button>
                 </div>
               </div>

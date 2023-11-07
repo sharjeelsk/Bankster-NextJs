@@ -287,7 +287,7 @@ function RecruiterJobDetail(props) {
             </Box>
             <TabPanel value="1" className="m-0 p-0">
               {singleJob && (
-                <section className="shadow-sm single-job row m-auto">
+                <section className="shadow-sm single-job row">
                   <div className="img-div col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1">
                     <img
                       src={

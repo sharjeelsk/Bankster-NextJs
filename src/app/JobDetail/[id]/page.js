@@ -26,7 +26,7 @@
 // import Header from "@/app/components/Header/Header";
 // import FilterMenu from "@/app/components/FilterMenu";
 // import Head from "next/head";
-import Jobs from "@/app/components/Jobs"
+import Jobs from "@/app/components/Jobs";
 import axios from "axios";
 
 export async function generateMetadata({ params }) {
@@ -43,22 +43,22 @@ export async function generateMetadata({ params }) {
 
   return {
     title: product.data.result.title,
+    location: product.data.result.jobLocation.city,
+    product: product.data.result.product,
+    ctc: product.data.result.ctc.max,
     description: product.data.result.jobDescription,
-    // openGraph: {
-    //   images: ["/some-specific-page-image.jpg"],
-    // },
+    openGraph: {
+      images: ["/banksterfullAsset.png"],
+    },
   };
 }
 
 function JobDetail(props) {
-
-
   return (
     <div>
-     <Jobs props={props}/>
+      <Jobs props={props} />
     </div>
   );
 }
-
 
 export default JobDetail;

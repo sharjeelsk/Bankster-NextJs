@@ -1,5 +1,9 @@
 @import "./globals.scss";
 
+.dashboard-container {
+  background-color: #fdd7e621;
+}
+
 .note-text {
   font-weight: bold;
   color: #a1a1a1;
@@ -26,6 +30,74 @@
       font-size: 2.5em;
       text-align: center;
     }
+  }
+}
+
+.single-job {
+  background-color: white;
+  border-radius: 10px;
+  margin: 3% 2% !important;
+  padding: 2% 0;
+  .company-name {
+    font-weight: 300;
+  }
+  h3 {
+    font-size: 1.5em;
+  }
+  img {
+    width: 80%;
+    margin: auto;
+    display: block;
+    border-radius: 100%;
+  }
+  .content-div {
+    h3,
+    h4 {
+      margin: 0;
+    }
+    h4 {
+      color: $tertiary;
+      margin: 1% 0 !important;
+    }
+    .total-reviews {
+      font-weight: bold;
+      color: $primary;
+    }
+    .key-headline {
+      font-size: 1.05em;
+      font-weight: 500;
+    }
+    .description {
+      border-top: 1px solid $tertiary;
+      padding-top: 2%;
+      margin-top: 2%;
+      h2 {
+        font-weight: 400;
+        font-size: 1.5em;
+      }
+    }
+  }
+  .bookmark-div {
+    text-align: right;
+  }
+
+  .recruiter-info {
+    background-color: $secondary;
+    padding: 2%;
+    h3 {
+      font-weight: 600;
+      margin: 0;
+    }
+    img {
+      width: 100%;
+    }
+  }
+
+  .time-frame {
+    text-align: right;
+    font-weight: 600;
+    font-size: 0.8em;
+    color: #ccc;
   }
 }
 

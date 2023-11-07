@@ -42,8 +42,6 @@ function JobDetail(props) {
 
   const router = useRouter();
 
-
-
   useEffect(() => {
     axios
       .post(

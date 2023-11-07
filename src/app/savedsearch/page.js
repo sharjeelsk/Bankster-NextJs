@@ -73,8 +73,11 @@ function Bookmark(props) {
               columns={columns2}
               autoPageSize
               onRowClick={(item, ev) =>
-                // push("/searchcandidates", item.row)
-                router.push(`/searchcandidates?key=${item.row}`)
+                router.push(
+                  `/searchcandidates?key=${encodeURIComponent(
+                    JSON.stringify(item.row)
+                  )}`
+                )
               }
             />
           </div>
