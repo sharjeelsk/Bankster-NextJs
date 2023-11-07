@@ -10,6 +10,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { Providers } from "@/redux/provider";
 import customTheme from "./utils/CustomTheme";
+import InitGA from "./utils/Analytics";
 
 const montserrat = Montserrat({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -32,8 +33,8 @@ export const metadata = {
   },
   description:
     "Banksterindia.com a part of RALT INFOTECH PVT LTD, which is earlier known as &quot;RALT HR SERVICES&quot; is promoted by Mr. Trivesh Kumar, he is having 12+ Years of the vintage in the Service Industry. RALT INFOTECH comprises different entities that are into providing multiple services and facilities to our client Corporates and Individuals, providing a platform that takes care of your non-core functions and gives you the time and opportunity to focus on your core business activities.",
-  openGraph: {
-    images: "/banksterfullAsset.png",
+  icons: {
+    icon: "/banksterfullAsset.png",
   },
 };
 
@@ -51,9 +52,8 @@ export default function RootLayout({ children }) {
   if (typeof window !== "undefined") {
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
+    InitGA();
   }
-
-  // ReactGA.initialize("G-7LB14FK7SE");
 
   return (
     <html lang="en" className={`${montserrat.variable} ${roboto.variable}`}>
