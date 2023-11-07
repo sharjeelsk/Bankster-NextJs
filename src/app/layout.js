@@ -33,7 +33,7 @@ export const metadata = {
   description:
     "Banksterindia.com a part of RALT INFOTECH PVT LTD, which is earlier known as &quot;RALT HR SERVICES&quot; is promoted by Mr. Trivesh Kumar, he is having 12+ Years of the vintage in the Service Industry. RALT INFOTECH comprises different entities that are into providing multiple services and facilities to our client Corporates and Individuals, providing a platform that takes care of your non-core functions and gives you the time and opportunity to focus on your core business activities.",
   openGraph: {
-    images: ["/banksterfullAsset.png"],
+    images: "/banksterfullAsset.png",
   },
 };
 
