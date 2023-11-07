@@ -48,7 +48,7 @@ export async function generateMetadata({ params }) {
     ctc: product.data.result.ctc.max,
     description: product.data.result.jobDescription,
     openGraph: {
-      images: ["/banksterfullAsset.png"],
+      images: "/banksterfullAsset.png",
     },
   };
 }
