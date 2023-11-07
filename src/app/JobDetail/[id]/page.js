@@ -12,18 +12,11 @@ export async function generateMetadata({ params }) {
   );
 
   return {
-    // title: product.data.result.title,
-    // description: `Location:${product.data.result.jobLocation.city},
-    //               Product:${product.data.result.product},
-    //               CTC:${product.data.result.ctc.max},
-    // ${product.data.result.jobDescription}`,
-    openGraph: {
-      title: product.data.result.title,
-      Location: product.data.result.jobLocation.city,
-      Product: product.data.result.product,
-      CTC: product.data.result.ctc.max,
-      description: product.data.result.jobDescription,
-    },
+    title: product.data.result.title,
+    description: `Location:${product.data.result.jobLocation.city},
+                  Product:${product.data.result.product},
+                  CTC:${product.data.result.ctc.max},
+    ${product.data.result.jobDescription}`,
   };
 }
 
