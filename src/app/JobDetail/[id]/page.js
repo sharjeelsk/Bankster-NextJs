@@ -12,7 +12,7 @@ export async function generateMetadata({ params }) {
   );
 
   return {
-    title: `${product.data.result.title} | ${product.data.resultcompanyName}`,
+    title: `${product.data.result.title} | ${product.data.result.companyName}`,
     description: `${product.data.result.jobLocation.city} | ${product.data.result.product} | ${product.data.result.ctc.max}`,
   };
 }
