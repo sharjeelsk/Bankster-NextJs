@@ -13,7 +13,8 @@ export async function generateMetadata({ params }) {
 
   return {
     title: `${product.data.result.title} | ${product.data.result.companyName}`,
-    description: `${product.data.result.jobLocation.city} | ${product.data.result.product} | ${product.data.result.ctc.max}`,
+    description: `${product.data.result.jobLocation.city} | ${product.data.result.product} | ${product.data.result.ctc.max} |
+                   ${product.data.result.roleResp[0]}`,
   };
 }
 
