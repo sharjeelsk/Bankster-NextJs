@@ -185,7 +185,7 @@ const Header = (props) => {
                   ) : (
                     <Link className="nav-link" href="/signup">
                       <Button
-                        sx={{ fontSize: "1.1rem" }}
+                        sx={{ fontSize: "1.1rem", fontWeight: "500" }}
                         variant="contained"
                         size="large"
                         className="btn-purple"

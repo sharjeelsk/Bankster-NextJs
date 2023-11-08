@@ -12,14 +12,15 @@ export async function generateMetadata({ params }) {
   );
 
   return {
-    title: product.data.result.title,
-    description: `Location:${product.data.result.jobLocation.city},
-                  Product:${product.data.result.product},
-                  CTC:${product.data.result.ctc.max},
-    ${product.data.result.jobDescription}`,
+    title: `${product.data.result.title} | ${product.data.resultcompanyName}`,
+    description: `${product.data.result.jobLocation.city} | ${product.data.result.product} | ${product.data.result.ctc.max}`,
   };
 }
 
+// description: `Location:${product.data.result.jobLocation.city} |
+//                 Product:${product.data.result.product},
+//                 CTC:${product.data.result.ctc.max},
+//   ${product.data.result.jobDescription}`,
 // location: product.data.result.jobLocation.city,
 // product: product.data.result.product,
 // ctc: product.data.result.ctc.max,

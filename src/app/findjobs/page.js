@@ -377,7 +377,7 @@ function FindJobs(props) {
           </div>
           {jobs.length > 0 ? (
             jobs.map((item, index) => (
-              <section key={index} className="shadow-sm single-job row m-auto">
+              <section key={index} className="shadow-sm single-job row">
                 <div className="img-div col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
                   <img
                     src={
