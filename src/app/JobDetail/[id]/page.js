@@ -13,18 +13,10 @@ export async function generateMetadata({ params }) {
 
   return {
     title: product.data.result.title,
-    // description: `Location:${product.data.result.jobLocation.city},
-    //               Product:${product.data.result.product},
-    //               CTC:${product.data.result.ctc.max},
-    // ${product.data.result.jobDescription}`,
-    openGraph: {
-      title: product.data.result.title,
-      Location: product.data.result.jobLocation.city,
-      description: "The React Framework for the Web",
-      type: "article",
-      publishedTime: "2023-01-01T00:00:00.000Z",
-      authors: ["Seb", "Josh"],
-    },
+    description: `Location:${product.data.result.jobLocation.city},
+                  Product:${product.data.result.product},
+                  CTC:${product.data.result.ctc.max},
+    ${product.data.result.jobDescription}`,
   };
 }
 
