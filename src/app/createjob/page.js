@@ -35,7 +35,7 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { renderRating } from "../utils/Functions";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import "../style/JobsCreated.scss";
 
 function CreateJob(props) {
@@ -46,6 +46,12 @@ function CreateJob(props) {
   const [functionalArea, setFunctionalArea] = useState([]);
   const [industry, setIndustry] = useState([]);
   const [block, setBlock] = useState(false);
+  const searchParams = useSearchParams()
+ 
+  const querySearch = searchParams.get('key')
+ 
+
+  console.log(querySearch,"querySearch")
 
   const [formValues, setFormValues] = useState({
     title: "",
@@ -86,10 +92,8 @@ function CreateJob(props) {
     register,
   } = useForm();
 
-  console.log("creaet job props", props);
-
   const getCities = (state) => {
-    console.log(state);
+    // console.log(state);
     var config = {
       method: "get",
       url: `https://api.countrystatecity.in/v1/countries/IN/states/${state}/cities`,
@@ -101,7 +105,7 @@ function CreateJob(props) {
 
     axios(config)
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         setCities(response.data);
       })
       .catch(function (error) {
@@ -118,7 +122,7 @@ function CreateJob(props) {
         }
       )
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.data.msg === "success") {
           if (
             res.data.result.length ===
@@ -133,8 +137,8 @@ function CreateJob(props) {
       });
   };
 
-  const parsedItem = props.searchParams.key
-    ? JSON.parse(decodeURIComponent(props.searchParams.key))
+  const parsedItem = querySearch
+    ? JSON.parse(decodeURIComponent(querySearch))
     : null;
 
     console.log(parsedItem,"parsedItem")
