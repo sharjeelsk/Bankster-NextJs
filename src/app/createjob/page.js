@@ -137,6 +137,8 @@ function CreateJob(props) {
     ? JSON.parse(decodeURIComponent(props.searchParams.key))
     : null;
 
+    console.log(parsedItem,"parsedItem")
+
   useEffect(() => {
     //getRecruiterJob()
     if (parsedItem) {
@@ -296,7 +298,6 @@ function CreateJob(props) {
               <MenuIcon fontSize="inherit" />
             </IconButton>
           </span>
-
           {block ? (
             <section className="upgrade-plan">
               <div>
