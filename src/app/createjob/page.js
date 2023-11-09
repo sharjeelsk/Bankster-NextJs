@@ -46,12 +46,9 @@ function CreateJob(props) {
   const [functionalArea, setFunctionalArea] = useState([]);
   const [industry, setIndustry] = useState([]);
   const [block, setBlock] = useState(false);
-  const searchParams = useSearchParams()
- 
-  const querySearch = searchParams.get('key')
- 
+  const searchParams = useSearchParams();
 
-  console.log(querySearch,"querySearch")
+  const querySearch = searchParams.get("key");
 
   const [formValues, setFormValues] = useState({
     title: "",
@@ -140,8 +137,6 @@ function CreateJob(props) {
   const parsedItem = querySearch
     ? JSON.parse(decodeURIComponent(querySearch))
     : null;
-
-    console.log(parsedItem,"parsedItem")
 
   useEffect(() => {
     //getRecruiterJob()

@@ -28,6 +28,7 @@ import GetNameModal from "../components/FindCandidates/GetNameModal";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
+import { useSearchParams } from "next/navigation";
 
 function SearchCandidates(props) {
   const [gender, setGender] = useState("All");
@@ -35,6 +36,10 @@ function SearchCandidates(props) {
   const [selectedDateFilter, setSelectedDateFilter] = useState(null);
   const [selectedCandidate, setSelectedCandidate] = useState([]);
   const [error, setError] = useState(null);
+
+  const searchParams = useSearchParams()
+ 
+  const querySearch = searchParams.get('key')
 
   const handleChange = (event) => {
     setGender(event.target.value);
@@ -166,8 +171,8 @@ function SearchCandidates(props) {
       setError("Log In as a recruiter to view this section");
     }
 
-    const parsedItem = props.searchParams.key
-      ? JSON.parse(decodeURIComponent(props.searchParams.key))
+    const parsedItem = querySearch
+      ? JSON.parse(decodeURIComponent(querySearch))
       : null;
 
     if (parsedItem) {

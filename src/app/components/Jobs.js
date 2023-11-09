@@ -372,7 +372,7 @@ function JobDetail(props) {
       </Head> */}
       <Header id="2" />
       <section className="row m-auto find-jobs-head">
-        <div className=" col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div className="p-0 col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
           <div className="display-mobile">
             {!display ? (
               <IconButton onClick={() => setDisplay(true)}>
