@@ -28,7 +28,7 @@ import GetNameModal from "../components/FindCandidates/GetNameModal";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 function SearchCandidates(props) {
   const [gender, setGender] = useState("All");
@@ -37,9 +37,11 @@ function SearchCandidates(props) {
   const [selectedCandidate, setSelectedCandidate] = useState([]);
   const [error, setError] = useState(null);
 
-  const searchParams = useSearchParams()
- 
-  const querySearch = searchParams.get('key')
+  const router = useRouter();
+
+  const searchParams = useSearchParams();
+
+  const querySearch = searchParams.get("key");
 
   const handleChange = (event) => {
     setGender(event.target.value);
@@ -758,7 +760,11 @@ function SearchCandidates(props) {
                     <Button
                       onClick={() =>
                         // push("/sendjobemail", selectedCandidate)
-                        router.push(`/sendjobemail?key=${selectedCandidate}`)
+                        router.push(
+                          `/sendjobemail?key=${encodeURIComponent(
+                            JSON.stringify(selectedCandidate)
+                          )}`
+                        )
                       }
                       startIcon={<EmailIcon />}
                     >

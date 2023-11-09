@@ -237,7 +237,7 @@ function JobsCreated(props) {
                   <div
                     className="application-count col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 link cp"
                     onClick={() =>
-                      router.push(`/recruiterjobdetail/${item._id}`, true)
+                      router.push(`/recruiterjobdetail/${item._id}`)
                     }
                   >
                     <p className="my-2">

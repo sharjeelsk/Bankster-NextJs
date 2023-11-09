@@ -83,10 +83,9 @@ function SubRecruiters(props) {
                   rows={subRecruiters}
                   columns={columns2}
                   autoPageSize
-                  onRowClick={(item, ev) =>
-                    //push("/orderdetails", item.row)
-                    router.push(`/orderdetails?key=${item.row}`)
-                  }
+                  // onRowClick={(item, ev) =>
+                  //   push("/orderdetails", item.row)
+                  // }
                 />
               </div>
 

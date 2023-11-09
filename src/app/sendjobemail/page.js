@@ -9,7 +9,7 @@ import { setUser, storeUserType } from "../../redux/user/userActions";
 import GetNameModal from "../components/FindCandidates/GetNameModal";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 function SendJobEmail(props) {
   const [emails, setEmails] = useState([]);
@@ -41,7 +41,9 @@ function SendJobEmail(props) {
   const [cities, setCities] = useState([]);
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  console.log(props, "props");
+  const searchParams = useSearchParams();
+
+  const querySearch = searchParams.get("key");
 
   const getCities = (state) => {
     console.log(state);
@@ -64,6 +66,10 @@ function SendJobEmail(props) {
       });
   };
 
+  const parsedItem = querySearch
+    ? JSON.parse(decodeURIComponent(querySearch))
+    : null;
+
   useEffect(() => {
     var config = {
       method: "get",
@@ -82,8 +88,9 @@ function SendJobEmail(props) {
       .catch(function (error) {
         console.log(error);
       });
-    if (props.location?.state) {
-      setEmails(props.location.state.map((item) => item.email));
+
+    if (parsedItem) {
+      setEmails(parsedItem.map((item) => item.email));
     }
   }, []);
 
@@ -207,7 +214,6 @@ function SendJobEmail(props) {
           <h3>Job Details</h3>
           <TextField
             inputProps={{ maxLength: 30 }}
-            //disabled={props.location.state?true:false}
             value={formValues.title}
             onChange={(e) =>
               setFormValues({ ...formValues, title: e.target.value })
