@@ -29,8 +29,6 @@ import Head from "next/head";
 
 function JobDetail(props) {
   let params = useParams();
-  console.log(props);
-  console.log(params);
   const [display, setDisplay] = useState(false);
   const [singleJob, setSingleJob] = useState(null);
   const [bookmarked, setBookmarked] = useState(false);
