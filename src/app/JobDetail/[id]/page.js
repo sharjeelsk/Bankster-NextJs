@@ -23,7 +23,19 @@ export async function generateMetadata({ params }) {
       product.data.result.roleResp[0] && product.data.result.roleResp[0]
     }`,
     openGraph: {
-      images: "/opengraph-image.png",
+      title: `💼${product.data.result.title} | 🏬${product.data.result.companyName}`,
+      description: `📍${product.data.result.jobLocation.city} | ${
+        product.data.result.product
+      } | ₹${product.data.result.ctc.max} | ${
+        product.data.result.roleResp[0] && product.data.result.roleResp[0]
+      }`,
+      type: "website",
+      images: [
+        {
+          url: "/opengraph-image.png",
+        },
+      ],
+      siteName: "BanksterIndia",
     },
     // title: `💼${product.data.result.title} | 🏬${product.data.result.companyName}`,
     // description: `📍${product.data.result.jobLocation.city} | ${product.data.result.product} | ₹${product.data.result.ctc.max} | ${product.data.result.roleResp[0] && product.data.result.roleResp[0]}`,
