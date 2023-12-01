@@ -12,29 +12,49 @@ export async function generateMetadata({ params }) {
   );
 
   return {
-    metadataBase: new URL("https://banksterindia.vercel.app"),
-    title: `💼${product.data.result.title} | 🏬${product.data.result.companyName}`,
-    description: `📍${product.data.result.jobLocation.city} | ${product.data.result.product} | ₹${product.data.result.ctc.max} | ${product.data.result.roleResp[0]}`,
-    // authors: [{ name:product.data.result.createdBy.fullName}],
-    // publishDate:product.data.result.createdAt
+    // title: `💼${product.data.result.title} | 🏬${product.data.result.companyName}`,
+    // description: `📍${product.data.result.jobLocation.city} | ${product.data.result.product} | ₹${product.data.result.ctc.max} | ${product.data.result.roleResp[0]}`,
     openGraph: {
       title: `💼${product.data.result.title} | 🏬${product.data.result.companyName}`,
       description: `📍${product.data.result.jobLocation.city} | ${product.data.result.product} | ₹${product.data.result.ctc.max} | ${product.data.result.roleResp[0]}`,
+      url: `/JobDetail/${product.data.result.id}`,
       type: "article",
-      publishedTime: new Date(product.data.result.createdAt),
-      authors: [{ name: product.data.result.createdBy.fullName }],
-      images: ["/opengraph-image.png"],
+      siteName: "banksterindia",
+      publishedTime: new Date(product.data.result.createdAt).toISOString(),
+      authors: [product.data.result.createdBy.fullName],
+      images: [
+        {
+          url: "/opengraph-image.png",
+          width: 1200,
+          height: 630,
+          alt: `Preview image for banksterindia`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      site: "@banksterindia",
+      title: `💼${product.data.result.title} | 🏬${product.data.result.companyName}`,
+      description: `📍${product.data.result.jobLocation.city} | ${product.data.result.product} | ₹${product.data.result.ctc.max} | ${product.data.result.roleResp[0]}`,
+      creator: product.data.result.createdBy.fullName,
+      images: {
+        url: `/opengraph-image.png`,
+        alt: `Preview image for banksterindia`,
+      },
     },
   };
 }
 
-// description: `Location:${product.data.result.jobLocation.city} |
-//                 Product:${product.data.result.product},
-//                 CTC:${product.data.result.ctc.max},
-//   ${product.data.result.jobDescription}`,
-// location: product.data.result.jobLocation.city,
-// product: product.data.result.product,
-// ctc: product.data.result.ctc.max,
+// authors: [{ name:product.data.result.createdBy.fullName}],
+// publishDate:product.data.result.createdAt
+// openGraph: {
+//   title: `💼${product.data.result.title} | 🏬${product.data.result.companyName}`,
+//   description: `📍${product.data.result.jobLocation.city} | ${product.data.result.product} | ₹${product.data.result.ctc.max} | ${product.data.result.roleResp[0]}`,
+//   type: "article",
+//   publishedTime: new Date(product.data.result.createdAt),
+//   authors: [product.data.result.createdBy.fullName],
+//   images: ["/opengraph-image.png"],
+// },
 
 function JobDetail(props) {
   return (
