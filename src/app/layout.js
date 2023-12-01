@@ -27,7 +27,7 @@ const roboto = Roboto({
 });
 
 export const metadata = {
-  // metadataBase: new URL("https://banksterindia.vercel.app"),
+  metadataBase: new URL("https://banksterindia.vercel.app"),
   openGraph: {
     title: "BanksterIndia",
     description:

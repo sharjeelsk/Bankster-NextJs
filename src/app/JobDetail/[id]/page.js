@@ -14,6 +14,7 @@ export async function generateMetadata({ params }) {
   return {
     // title: `💼${product.data.result.title} | 🏬${product.data.result.companyName}`,
     // description: `📍${product.data.result.jobLocation.city} | ${product.data.result.product} | ₹${product.data.result.ctc.max} | ${product.data.result.roleResp[0]}`,
+    metadataBase: new URL("https://banksterindia.vercel.app"),
     openGraph: {
       title: `💼${product.data.result.title} | 🏬${product.data.result.companyName}`,
       description: `📍${product.data.result.jobLocation.city} | ${product.data.result.product} | ₹${product.data.result.ctc.max} | ${product.data.result.roleResp[0]}`,
