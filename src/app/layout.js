@@ -37,7 +37,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/opengraph-image.png",
+        url: "/opengraph-image.jpeg",
         // secureUrl:
         //   "https://raw.githubusercontent.com/gitdagray/my-blogposts/main/images/og-card.png",
         width: 1200,

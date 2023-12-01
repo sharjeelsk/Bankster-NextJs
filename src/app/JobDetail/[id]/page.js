@@ -24,7 +24,7 @@ export async function generateMetadata({ params }) {
       authors: [product.data.result.createdBy.fullName],
       images: [
         {
-          url: "/opengraph-image.png",
+          url: "/opengraph-image.jpeg",
           width: 1200,
           height: 630,
           alt: `Preview image for banksterindia`,
@@ -38,7 +38,7 @@ export async function generateMetadata({ params }) {
       description: `📍${product.data.result.jobLocation.city} | ${product.data.result.product} | ₹${product.data.result.ctc.max} | ${product.data.result.roleResp[0]}`,
       creator: product.data.result.createdBy.fullName,
       images: {
-        url: `/opengraph-image.png`,
+        url: `/opengraph-image.jpeg`,
         alt: `Preview image for banksterindia`,
       },
     },
