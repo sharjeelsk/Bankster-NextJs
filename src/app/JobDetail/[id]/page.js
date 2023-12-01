@@ -12,10 +12,19 @@ export async function generateMetadata({ params }) {
   );
 
   return {
+    metadataBase: new URL("https://banksterindia.vercel.app"),
     title: `💼${product.data.result.title} | 🏬${product.data.result.companyName}`,
     description: `📍${product.data.result.jobLocation.city} | ${product.data.result.product} | ₹${product.data.result.ctc.max} | ${product.data.result.roleResp[0]}`,
     // authors: [{ name:product.data.result.createdBy.fullName}],
     // publishDate:product.data.result.createdAt
+    openGraph: {
+      title: `💼${product.data.result.title} | 🏬${product.data.result.companyName}`,
+      description: `📍${product.data.result.jobLocation.city} | ${product.data.result.product} | ₹${product.data.result.ctc.max} | ${product.data.result.roleResp[0]}`,
+      type: "article",
+      publishedTime: new Date(product.data.result.createdAt),
+      authors: [{ name: product.data.result.createdBy.fullName }],
+      images: ["/opengraph-image.png"],
+    },
   };
 }
 
