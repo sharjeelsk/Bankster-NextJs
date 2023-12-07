@@ -110,7 +110,10 @@ function Footer() {
             </IconButton>
             <IconButton
               onClick={() =>
-                window.open("https://www.instagram.com/bankingjob/", "_blank")
+                window.open(
+                  "https://www.instagram.com/banksterindia/",
+                  "_blank"
+                )
               }
             >
               <InstagramIcon />
